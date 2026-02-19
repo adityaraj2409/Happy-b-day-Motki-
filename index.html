@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morki Queen 👑</title>
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: Comic Sans MS, cursive;
+  text-align: center;
+  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+  color: white;
+  transition: 1s;
+}
+
+.container {
+  margin-top: 40px;
+}
+
+h1 {
+  font-size: 40px;
+  animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 20px;
+  background: #ff4b5c;
+  color: white;
+  cursor: pointer;
+  margin: 8px;
+  transition: .3s;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+#cake {
+  font-size: 80px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.hidden {
+  display: none;
+}
+
+#typeMsg {
+  font-size: 22px;
+  margin-top: 15px;
+  color: yellow;
+}
+
+/* Award Box */
+#awardBox {
+  display:none;
+  font-size:20px;
+  margin-top:15px;
+  background:rgba(0,0,0,0.3);
+  padding:10px;
+  border-radius:15px;
+}
+.food {
+  position: fixed;
+  top: -60px;              /* 👈 upar se start hoga */
+  font-size: 35px;
+  animation: fall linear forwards;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+
+@keyframes fall {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(120vh);
+    opacity: 0;
+  }
+}
+#studySection{
+  margin-top:30px;
+  padding:20px;
+  background:rgba(0,0,0,0.35);
+  border-radius:20px;
+  transition:0.5s;
+}
+
+#studySection.glow{
+  box-shadow:0 0 25px #fff, 0 0 40px #ff4b5c;
+  transform:scale(1.03);
+}
+
+#studyMsg{
+  font-size:20px;
+  margin-top:15px;
+  opacity:0;
+  transition:0.8s;
+}
+
+#studyMsg.show{
+  opacity:1;
+}
+@keyframes flashRed {
+  0% { background-color: #ff4b5c; }
+  50% { background-color: #8b0000; }
+  100% { background-color: #ff4b5c; }
+}
+
+.flash {
+  animation: flashRed 0.5s infinite;
+}
+/* Photo Gallery */
+#photoSection{
+  margin-top:40px;
+  padding:20px;
+}
+
+.photoGallery{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.photoGallery img{
+  width:220px;
+  height:260px;
+  object-fit:cover;
+  border-radius:20px;
+  box-shadow:0 0 15px rgba(0,0,0,0.4);
+  transition:0.4s;
+}
+
+.photoGallery img:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 25px #fff;
+}
+.photoGallery img{
+  width:250px;
+  height:auto;
+  border-radius:20px;
+  box-shadow:0 0 15px rgba(0,0,0,0.4);
+  transition:0.4s;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>🎂 Happy Birthday Lado 🎀</h1>
+
+<p>Official Title: 👑 Queen of Khana & Drama 👑</p>
+
+<div id="cake" onclick="cutCake()">🎂</div>
+<p>(Cake ko tap karo 😋)</p>
+
+<div id="typeMsg"></div>
+
+<button onclick="giveAward()">🏆 Give Motki Award</button>
+<button onclick="changeBG()">🌈 Party Mode</button>
+<button onclick="khanaAlert()">🍕 Khana Alert</button>
+<button onclick="angrySiren()">🚨 Angry Siren</button>
+
+<div id="awardBox">
+🏆 Award: “World Ki Sabse Pyaari Motki”  
+Reason: Kyuki ye ghar ki hasi hai 💖😂
+</div>
+
+</div>
+<h2>😈 Steal The Snacks Before Motki Sees</h2>
+<div id="stealScore">Score: 0</div>
+<button onclick="startStealGame()">Start Steal Game</button>
+
+<div id="stealArea" style="
+  position:relative;
+  width:100%;
+  height:350px;
+  background:rgba(0,0,0,0.25);
+  border-radius:20px;
+  overflow:hidden;
+  margin-top:15px;">
+</div>
+<button onclick="protectMode()">🛡 Big Brother Mode</button>
+<div id="studySection">
+  <h2>📚 Study Mode 💖</h2>
+  <p id="studyMsg"></p>
+  <button onclick="showStudyMsg()">✨ Click Here Motki ✨</button>
+</div>
+
+<p id="protectMsg"></p>
+<button onclick="angryTest()">😡 Gussa Check</button>
+<button onclick="secretMsg()">🔒 Secret Message</button>
+<div id="photoSection">
+  <h2>📸 Motki Memories 💖</h2>
+
+  <div class="photoGallery">
+    <img src="2.png" alt="Motki 1">
+    <img src="1.png" alt="Motki 2">
+    
+  </div>
+</div>
+
+<script>
+function cutCake(){
+  document.getElementById("cake").innerHTML="🍰";
+  typeWriter();
+}
+
+let i=0;
+let text="Tu sirf meri choti behen nahi... Tu meri life ka cutest headache hai 😜💖";
+function typeWriter(){
+  if(i<text.length){
+    document.getElementById("typeMsg").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeWriter,50);
+  }
+}
+
+function giveAward(){
+  document.getElementById("awardBox").style.display="block";
+}
+
+function changeBG(){
+  document.body.style.background="hsl("+Math.random()*360+",70%,70%)";
+}
+
+function khanaAlert(){
+  let foods = ["🍕","🍔","🍟","🌭","🍗","🍩","🍫","🧁","🍰","🥤"];
+
+  for(let i=0;i<30;i++){
+
+    let food = document.createElement("div");
+    food.className = "food";
+    food.innerHTML = foods[Math.floor(Math.random()*foods.length)];
+
+    // Random horizontal position
+    food.style.left = Math.random()*95 + "vw";
+
+    // Random speed
+    food.style.animationDuration = (2 + Math.random()*3) + "s";
+
+    document.body.appendChild(food);
+
+    // Remove safely after animation
+    setTimeout(()=>{
+      if(document.body.contains(food)){
+        food.remove();
+      }
+    },5000);
+  }
+
+  alert("🚨 Khana Attack! Motki bachaaaaooo 😂🍕");
+}
+
+
+let stealScore = 0;
+let stealInterval;
+
+let stealItems = [
+  {emoji:"🍕", points:5},
+  {emoji:"🍔", points:5},
+  {emoji:"🍟", points:3},
+  {emoji:"🍩", points:4},
+  {emoji:"😡", points:-10} // Motki angry mode 😂
+];
+
+function startStealGame(){
+  stealScore = 0;
+  document.getElementById("stealScore").innerHTML = "Score: 0";
+  clearInterval(stealInterval);
+  stealInterval = setInterval(spawnStealItem, 600);
+
+  setTimeout(()=>{
+    clearInterval(stealInterval);
+    alert("Game Over 😈 Final Score: " + stealScore);
+  },20000); // 20 sec game
+}
+
+function spawnStealItem(){
+  let area = document.getElementById("stealArea");
+  let itemData = stealItems[Math.floor(Math.random()*stealItems.length)];
+
+  let item = document.createElement("div");
+  item.innerHTML = itemData.emoji;
+  item.style.position = "absolute";
+  item.style.fontSize = "45px";
+  item.style.cursor = "pointer";
+  item.style.left = Math.random()*85 + "%";
+  item.style.top = Math.random()*75 + "%";
+
+  item.onclick = function(){
+    stealScore += itemData.points;
+    document.getElementById("stealScore").innerHTML = "Score: " + stealScore;
+
+    if(itemData.points < 0){
+      alert("😡 Oyeeee! Motki ne pakad liya!");
+    }
+
+    item.remove();
+  }
+
+  area.appendChild(item);
+
+  setTimeout(()=>{
+    if(area.contains(item)){
+      item.remove();
+    }
+  },1500);
+}
+function protectMode(){
+  document.body.style.background = "linear-gradient(135deg,#1e3c72,#2a5298)";
+  document.getElementById("protectMsg").innerText =
+  "Main hu na… duniya tension le sakti hai, meri behen nahi 😎💖";
+}
+function showStudyMsg(){
+  let section = document.getElementById("studySection");
+  let msg = document.getElementById("studyMsg");
+
+  msg.innerText = "Tum ache se padh… main tumhare sath hu 💖\nTu bas padhai par dhyaan de 📚✨";
+
+  section.classList.add("glow");
+  msg.classList.add("show");
+
+  setTimeout(()=>{
+    section.classList.remove("glow");
+  },2000);
+}
+
+function angryTest(){
+  let mood = Math.random();
+
+  if(mood > 0.5){
+    alert("😡 Warning! Big Brother Alert! Motki ka mood red zone me 😤🍕");
+  } else {
+    alert("😂 Aaj mood mast hai! Khana manga lo 🍕");
+  }
+}
+function secretMsg(){
+  let pass = prompt("Password daalo (Hint: Motki 😜)");
+
+  if(pass && pass.toLowerCase() === "motki"){
+    alert("Chahe tu kitni bhi badi ho jaaye… mere liye tu hamesha meri choti si Lado rahegi 💖");
+  } else {
+    alert("Wrong password 😜 Big Brother approved nahi hai!");
+  }
+}
+function angrySiren(){
+  document.body.classList.add("flash");  // Body flash start
+  alert("🚨 Oyeee! Motki gussa ho rahi hai 😡💥 Jaldi hugs aur chocolate bhej!");
+
+  setTimeout(()=>{
+    document.body.classList.remove("flash"); // 4 sec baad stop
+  },4000);
+}
+
+</script>
+
+</body>
+</html>
